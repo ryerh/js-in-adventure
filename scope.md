@@ -48,9 +48,9 @@ console.log(g_value); // OK!
 ```
 
 ```javascript
-// 在 function 中修改 g_varialbe
+// 在 function 中修改 g_value
 !function() {
-  g_variable = 'where is kitty?';
+  g_value = 'where is kitty?';
 }();
 console.log(g_value); // OK!
 ```
