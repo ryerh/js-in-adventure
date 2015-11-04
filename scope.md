@@ -247,3 +247,5 @@ console.log(defined_value); // OK! ->  hello, kitty!
 
 **上面的一切是因为 `JavaScript` 在定义它们的作用域里运行，
 而不是在执行它们的作用域里运行。**
+
+## [未完待续]
