@@ -1,2 +1,2 @@
 # js-in-adventure
-walk an extraordinary journey on javascript
+体验非凡的 JavaScript 之旅 :)
