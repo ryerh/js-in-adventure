@@ -213,11 +213,11 @@ var sangsung_creator = create_factory('Galaxy');
 console.log(apple_creator('4s')); // OK! -> I created a(n) iPhone4s!
 console.log(sangsung_creator('S6')); // OK! -> I created a(n) GalaxyS6!
 // 事实证明，身为局部变量的 product 的确没有被销毁
-
-// 当内层函数引用了外层的变量，就被称为**闭包**，被引用的变量就叫**闭包变量**
-// **闭包变量**不会被立即销毁，所以不要滥用闭包
-// ==============================
 ```
+
+当内层函数引用了外层的变量，就被称为**闭包**，被引用的变量就叫**闭包变量**。
+**闭包变量**不会被立即销毁，所以不要滥用闭包
+
 
 ## 6、变量提升(Hoisting)
 **变量提升与词法作用域的关系也十分紧密，
