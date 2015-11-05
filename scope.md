@@ -32,7 +32,7 @@
 - `局部、私有作用域`
 
 ## 1、全局作用域
-**在代码顶层声明的变量都是全局变量**
+在代码顶层声明的变量都是全局变量
 ```javascript
 // 在顶层声明的变量
 var g_value = 'hello, kitty';
@@ -55,7 +55,7 @@ console.log(g_value); // OK!
 console.log(g_value); // OK!
 ```
 
-**附注：在 `JavaScript` 中，所有全局变量都是 `windows` 对象的属性**
+附注：在 `JavaScript` 中，所有全局变量都是 `windows` 对象的属性
 ```javascript
 // 声明一个全局变量
 var g_value = 'hello, kitty';
@@ -68,8 +68,8 @@ function g_func() {
 console.log(g_func === window.g_func); // OK! -> true
 ```
 
-**无论何处，只要没有使用 `var` 关键词声明变量，
-都将得到全局变量，你没有任何理由拒绝使用 `var` ！**
+无论何处，只要没有使用 `var` 关键词声明变量，
+都将得到全局变量，你没有任何理由拒绝使用 `var` ！
 ```javascript
 // 在函数中没有用 var 关键字声明变量，并立即执行这个函数
 !function() {
@@ -78,7 +78,7 @@ console.log(g_func === window.g_func); // OK! -> true
 console.log(none_var_value); // Buggy, but OK!
 ```
 ## 2、局部作用域
-**`for` 和 `if` 等语法块无法隔离作用域**
+`for` 和 `if` 等语法块无法隔离作用域
 ```javascript
   // 代码开始，全局作用域开始
   for(int i = 0; i < 10; i++) {
@@ -101,7 +101,7 @@ console.log(none_var_value); // Buggy, but OK!
   // 代码结束，全局作用域结束
 ```
 
-**只有 `function` 内部可以隔离函数作用域**
+只有 `function` 内部可以隔离函数作用域
 ```javascript
 // 代码开始，全局作用域开始
 !function() {
@@ -142,7 +142,7 @@ $(function() {
 ```
 
 ## 3、函数作用域
-**函数的定义可以嵌套，内部作用域如下：**
+函数的定义可以嵌套，内部作用域如下：
 ```javascript
 // 代码开始，全局作用域开始
 function AAA() {
@@ -162,7 +162,7 @@ function AAA() {
 ```
 
 ## 4、词法作用域
-**一个变量在他被声明的作用域链中都是可见的，其值由最近一层的定义所决定**
+一个变量在他被声明的作用域链中都是可见的，其值由最近一层的定义所决定
 ```javascript
 var outer_value = 'outside';
 
@@ -183,7 +183,7 @@ console.log(outer_value); // OK! -> outside
 ```
 
 ## 5、闭包
-**闭包与词法作用域的关系十分紧密**
+闭包与词法作用域的关系十分紧密
 ```javascript
 function create_factory(device) {
   // 1. 此处声明 product 变量
@@ -220,9 +220,9 @@ console.log(sangsung_creator('S6')); // OK! -> I created a(n) GalaxyS6!
 
 
 ## 6、变量提升(Hoisting)
-**变量提升与词法作用域的关系也十分紧密，
+变量提升与词法作用域的关系也十分紧密，
 只要一个变量被声明，
-那么在它所处的整个词法作用域中都是可见的**
+那么在它所处的整个词法作用域中都是可见的
 
 ```javascript
 // 直接访问一个从未声明的变量
@@ -273,7 +273,7 @@ var defined_value = 'hello, kitty!';
 console.log(defined_value); // OK! ->  hello, kitty!
 ```
 
-**变量提升有一个特例，就是当声明的变量是函数的时候**
+变量提升有一个特例，就是当声明的变量是函数的时候
 ```javascript
 // 方式一：使用 var 声明函数
 
@@ -290,7 +290,7 @@ var func = function() {
 // 方式二：不使用 var 声明函数
 
 // 先访问后声明
-console.log(func === undefined); // OK!
+console.log(func === undefined); // OK! -> false
 func(); // OK!
 
 function func() {
@@ -301,12 +301,12 @@ function func() {
 // 使用时要注意区别
 ```
 
-**上面的一切是因为 `JavaScript` 在定义它们的作用域里运行，
-而不是在执行它们的作用域里运行。**
+上面的一切是因为 `JavaScript` 在定义它们的作用域里运行，
+而不是在执行它们的作用域里运行。
 
 ## 7、动态作用域
-**在 `JavaScript` 中，`this` 指针的指向是动态绑定的，
-较之 `C++/Java` 中的 `this` 稍有出入**
+在 `JavaScript` 中，`this` 指针的指向是动态绑定的，
+较之 `C++/Java` 中的 `this` 稍有出入
 ```javascript
 // 直接在全局作用域中访问 `this`
 console.log(this === window); // OK! -> true
@@ -317,7 +317,7 @@ console.log(this === window); // OK! -> true
 console.log(this === window); // OK! -> true
 ```
 
-**此处简述动态作用域和 `this` 的用法，另会开篇详述**
+此处简述动态作用域和 `this` 的用法，另会开篇详述
 
 
 ### 参考
