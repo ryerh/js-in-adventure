@@ -197,7 +197,7 @@ console.log(sangsung_creator('S6')); // OK! -> I created a(n) GalaxyS6!
 // ======================
 ```
 
-## 6、变量提升
+## 6、变量提升(Hoisting)
 ```javascript
 // 直接访问一个从未声明的变量
 console.log(none_defined); // Referrence Error!
@@ -249,3 +249,7 @@ console.log(defined_value); // OK! ->  hello, kitty!
 而不是在执行它们的作用域里运行。**
 
 ## [未完待续]
+
+### 参考
+- [Everything you wanted to know about JavaScript scope](http://toddmotto.com/everything-you-wanted-to-know-about-javascript-scope/)
+- 《JavaScript 函数式编程》
