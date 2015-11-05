@@ -196,7 +196,7 @@ var sangsung_creator = create_factory('Galaxy');
 // 那么接下来这两行代码会得到什么结果
 // 应该是 Refference Error 吧？
 
-// 那么我们来执行以下试试看：
+// 那么我们来执行一下试试看：
 console.log(apple_creator('4s')); // OK! -> I created a(n) iPhone4s!
 console.log(sangsung_creator('S6')); // OK! -> I created a(n) GalaxyS6!
 // 事实证明，身为局部变量的 product 的确没有被销毁
