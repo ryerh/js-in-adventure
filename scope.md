@@ -79,7 +79,7 @@ console.log(none_var_value); // Buggy, but OK!
     var inner_if_value = 'I\'m in `if` statement';
   }
   console.log(inner_if_value); // OK!
-  
+
   {
     // 啊哈，还是全局作用域
     var i_am = 'crazy';
@@ -108,7 +108,7 @@ $(function() {
   // 变量缓存
   var $app = $('#app');
   // ...
-  
+
   // 逻辑开始
   // ...
 });
@@ -149,18 +149,24 @@ function AAA() {
 ```
 
 ## 4、词法作用域
-**嵌套函数每一层都可以访问函数外部声明的变量，
-这种特性叫闭包或者词法作用域**
+**一个变量在他被声明的作用域链中都是可见的，其值由最近一层的定义所决定**
 ```javascript
-var outer_value = 'I\'m from outsize';
+var outer_value = 'outside';
+
 !function() {
-  console.log(outer_value); // OK!
+  var outer_value = 'inside';
+  console.log(outer_value); // OK! -> inside
+
   !function() {
-    console.log(outer_value); // OK!
-    outer_value = 'I changed it from inside';
+    var outer_value = 'inner';
+    console.log(outer_value); // OK! -> inner
+
+    outer_value = 'modified';
   }();
+  console.log(outer_value); // OK! -> inside
+
 }();
-console.log(outer_value); // OK! -> Changed!
+console.log(outer_value); // OK! -> outside
 ```
 
 ## 5、闭包
@@ -169,14 +175,14 @@ console.log(outer_value); // OK! -> Changed!
 function create_factory(device) {
   // 1. 此处声明 product 变量
   var product = 'I created a(n) ' + device;
-  
+
   return function(model) {
     // 4. 但因为嵌套函数使用了 product 作为返回值
     // 5. 所以 product 变量的生命会延长
     // 6. 具体延长到什么时候？你猜:)
     return product + model;
   };
-  
+
   // 2. 此时 create_factory 执行完毕
   // 3. 局部变量 product 理应被销毁
 }
@@ -198,26 +204,30 @@ console.log(sangsung_creator('S6')); // OK! -> I created a(n) GalaxyS6!
 ```
 
 ## 6、变量提升(Hoisting)
+**变量提升与词法作用域的关系也十分紧密，
+只要一个变量被声明，
+那么在它所处的整个词法作用域中都是可见的**
+
 ```javascript
 // 直接访问一个从未声明的变量
 console.log(none_defined); // Referrence Error!
 ```
 
 ```javascript
-// 访问一个已声明的变量
+// 先声明后访问
 var defined_value = 'hello, kitty!';
 console.log(defined_value); // OK!
 ```
 
 ```javascript
-// 访问一个未来将被声明的变量
+// 先访问后声明
 console.log(will_define); // undefined!
 // ...
 var will_define = 'hello, kitty!';
 ```
 
 ```javascript
-// 情况复杂一点
+// 先访问后声明变形一
 !function() {
   console.log(will_define); // undefined!
 }();
@@ -225,23 +235,24 @@ var will_define = 'hello, kitty!';
 ```
 
 ```javascript
-// 更复杂一点
+// 在当前作用域声明 defined_value
 var defined_value = 'hello, kitty!';
-!function() {
-  var defined_value = 'hello, world!';
-  console.log(defined_value); // OK! -> hello, world!
-}();
-console.log(defined_value); // OK! ->  hello, kitty!
-```
 
-```javascript
-// 超级复杂
-var defined_value = 'hello, kitty!';
 !function() {
+  // 当前词法作用域找到了两个 defined_value
+  // 一个来上一层，另一个在本层稍后面几行
+  // 以就近原则为准，因此 defined_value 的值由本层级的定义决定
+  // 但是 defined_value 的赋值，还要等到后面才被执行
+  // 所以此时，defined_value 相当于已被声明，但没有赋值
+  // 所以直接输出 defined_value 得到的是 undefined 而不是 Referrence Error!
   console.log(defined_value); // undefined!
+
   var defined_value = 'hello, world!';
+  // 赋值完毕，可以正常访问 defined_value 的值了
   console.log(defined_value); // OK! -> hello, world!
 }();
+
+// 函数执行结束，退回到全局作用域，defined_value 的值并没有变化
 console.log(defined_value); // OK! ->  hello, kitty!
 ```
 
