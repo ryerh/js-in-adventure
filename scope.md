@@ -32,7 +32,7 @@
 - `局部、私有作用域`
 
 ## 1、全局作用域
-**在代码顶层声明的变量都是全局变量。**
+**在代码顶层声明的变量都是全局变量**
 ```javascript
 // 在顶层声明的变量
 var g_value = 'hello, kitty';
@@ -176,8 +176,8 @@ function create_factory(device) {
   // 1. 此处声明 product 变量
   var product = 'I created a(n) ' + device;
 
+  // 4. 返回值是一个函数，而且该函数需要依赖 product 才能执行
   return function(model) {
-    // 4. 但因为嵌套函数使用了 product 作为返回值
     // 5. 所以 product 变量的生命会延长
     // 6. 具体延长到什么时候？你猜:)
     return product + model;
@@ -195,12 +195,15 @@ var sangsung_creator = create_factory('Galaxy');
 // product 变量都被销毁了
 // 那么接下来这两行代码会得到什么结果
 // 应该是 Refference Error 吧？
+
+// 那么我们来执行以下试试看：
 console.log(apple_creator('4s')); // OK! -> I created a(n) iPhone4s!
 console.log(sangsung_creator('S6')); // OK! -> I created a(n) GalaxyS6!
 // 事实证明，身为局部变量的 product 的确没有被销毁
 
-// 上面这种情况，被称为闭包。
-// ======================
+// 当内层函数引用了外层的变量，就被称为**闭包**，被引用的变量就叫**闭包变量**
+// **闭包变量**不会被立即销毁，所以不要滥用闭包
+// ==============================
 ```
 
 ## 6、变量提升(Hoisting)
