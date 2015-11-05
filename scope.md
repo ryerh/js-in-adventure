@@ -44,7 +44,7 @@ var g_value = 'hello, kitty';
 if(true) {
   g_value.replace('kitty', 'world');
 }
-console.log(g_value); // OK!
+console.log(g_value); // :ok_hand:
 ```
 
 ```javascript
@@ -52,7 +52,20 @@ console.log(g_value); // OK!
 !function() {
   g_value = 'where is kitty?';
 }();
-console.log(g_value); // OK!
+console.log(g_value); // :ok_hand:
+```
+
+**附注：在 `JavaScript` 中，所有全局变量都是 `windows` 对象的属性**
+```javascript
+// 声明一个全局变量
+var g_value = 'hello, kitty';
+console.log(g_value === window.g_value); // :ok_hand: -> true
+
+// 定义一个全局函数
+function g_func() {
+  // ...
+}
+console.log(g_func === window.g_func); // :ok_hand: -> true
 ```
 
 **无论何处，只要没有使用 `var` 关键词声明变量，
@@ -62,7 +75,7 @@ console.log(g_value); // OK!
 !function() {
   none_var_value = 'this is dangerous!!!';
 }();
-console.log(none_var_value); // Buggy, but OK!
+console.log(none_var_value); // Buggy, but :ok_hand:
 ```
 ## 2、局部作用域
 **`for` 和 `if` 等语法块无法隔离作用域**
@@ -72,19 +85,19 @@ console.log(none_var_value); // Buggy, but OK!
     // 仍然处于全局作用域
     console.log(i);
   }
-  console.log(i); // OK! -> 10
+  console.log(i); // :ok_hand: -> 10
 
   if(true) {
     // 依旧处于全局作用域
     var inner_if_value = 'I\'m in `if` statement';
   }
-  console.log(inner_if_value); // OK!
+  console.log(inner_if_value); // :ok_hand:
 
   {
     // 啊哈，还是全局作用域
     var i_am = 'crazy';
   }
-  console.log(i_am); // OK!
+  console.log(i_am); // :ok_hand:
   // 代码结束，全局作用域结束
 ```
 
@@ -94,7 +107,7 @@ console.log(none_var_value); // Buggy, but OK!
 !function() {
   // 局部作用域开始
   var l_value = 'I\'m from local';
-  console.log(l_value); // OK!
+  console.log(l_value); // :ok_hand:
   // 局部作用域结束
 }();
 console.log(l_value); // Referrence Error!
@@ -155,18 +168,18 @@ var outer_value = 'outside';
 
 !function() {
   var outer_value = 'inside';
-  console.log(outer_value); // OK! -> inside
+  console.log(outer_value); // :ok_hand: -> inside
 
   !function() {
     var outer_value = 'inner';
-    console.log(outer_value); // OK! -> inner
+    console.log(outer_value); // :ok_hand: -> inner
 
     outer_value = 'modified';
   }();
-  console.log(outer_value); // OK! -> inside
+  console.log(outer_value); // :ok_hand: -> inside
 
 }();
-console.log(outer_value); // OK! -> outside
+console.log(outer_value); // :ok_hand: -> outside
 ```
 
 ## 5、闭包
@@ -197,8 +210,8 @@ var sangsung_creator = create_factory('Galaxy');
 // 应该是 Refference Error 吧？
 
 // 那么我们来执行一下试试看：
-console.log(apple_creator('4s')); // OK! -> I created a(n) iPhone4s!
-console.log(sangsung_creator('S6')); // OK! -> I created a(n) GalaxyS6!
+console.log(apple_creator('4s')); // :ok_hand: -> I created a(n) iPhone4s!
+console.log(sangsung_creator('S6')); // :ok_hand: -> I created a(n) GalaxyS6!
 // 事实证明，身为局部变量的 product 的确没有被销毁
 
 // 当内层函数引用了外层的变量，就被称为**闭包**，被引用的变量就叫**闭包变量**
@@ -213,13 +226,13 @@ console.log(sangsung_creator('S6')); // OK! -> I created a(n) GalaxyS6!
 
 ```javascript
 // 直接访问一个从未声明的变量
-console.log(none_defined); // Referrence Error!
+console.log(none_defined); // :x: -> Referrence Error!
 ```
 
 ```javascript
 // 先声明后访问
 var defined_value = 'hello, kitty!';
-console.log(defined_value); // OK!
+console.log(defined_value); // :ok_hand:
 ```
 
 ```javascript
@@ -238,6 +251,7 @@ var will_define = 'hello, kitty!';
 ```
 
 ```javascript
+// 先访问后声明变形二
 // 在当前作用域声明 defined_value
 var defined_value = 'hello, kitty!';
 
@@ -252,17 +266,56 @@ var defined_value = 'hello, kitty!';
 
   var defined_value = 'hello, world!';
   // 赋值完毕，可以正常访问 defined_value 的值了
-  console.log(defined_value); // OK! -> hello, world!
+  console.log(defined_value); // :ok_hand: -> hello, world!
 }();
 
 // 函数执行结束，退回到全局作用域，defined_value 的值并没有变化
-console.log(defined_value); // OK! ->  hello, kitty!
+console.log(defined_value); // :ok_hand: ->  hello, kitty!
+```
+
+**变量提升有一个特例，就是当声明的变量是函数的时候**
+```javascript
+// 方式一：使用 var 声明函数
+
+// 先访问后声明
+console.log(func === undefined); // :ok_hand: -> true
+func(); // :x: -> TypeError, func is not a function.
+
+var func = function() {
+  // ...
+}
+```
+
+```javascript
+// 方式二：不使用 var 声明函数
+
+// 先访问后声明
+console.log(func === undefined); // :ok_hand:
+func(); // :ok_hand:
+
+function func() {
+  // ...
+}
 ```
 
 **上面的一切是因为 `JavaScript` 在定义它们的作用域里运行，
 而不是在执行它们的作用域里运行。**
 
-## [未完待续]
+## 7、动态作用域
+**在 `JavaScript` 中，`this` 指针的指向是动态绑定的，
+较之 `C++/Java` 中的 `this` 稍有出入**
+```javascript
+// 直接在全局作用域中访问 `this`
+console.log(this === window); // :ok_hand: -> true
+```
+
+```javascript
+// 直接在全局作用域中访问 `this`
+console.log(this === window); // :ok_hand: -> true
+```
+
+**此处简述动态作用域和 `this` 的用法，另会开篇详述**
+
 
 ### 参考
 - [Everything you wanted to know about JavaScript scope](http://toddmotto.com/everything-you-wanted-to-know-about-javascript-scope/)
