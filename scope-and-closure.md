@@ -317,7 +317,7 @@ console.log(this === window); // OK! -> true
 console.log(this === window); // OK! -> true
 ```
 
-此处简述动态作用域和 `this` 的用法，另会开篇详述
+此处简述动态作用域和 `this` 的用法，在另一篇关于 `prototype-new-constructor` 中有详述。
 
 ### 参考
 - [Everything you wanted to know about JavaScript scope](http://toddmotto.com/everything-you-wanted-to-know-about-javascript-scope/)
