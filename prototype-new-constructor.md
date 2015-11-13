@@ -60,8 +60,8 @@ myTodo.addTodo('say javascript is awesome 100 times every day!');
 
 ## `new` 一个构造器的幕后发生了什么？
 `new` 操作符用于生成对象的实例。这里的对象指以下两种：
-1. 自定义的 `function`
-2. 内置的带构造器的对象
+  1. 自定义的 `function`
+  2. 内置的带构造器的对象
 
 示例
 ```javascript
@@ -75,10 +75,10 @@ console.log(foo.prop); // "prop in Foo's instance"
 console.log(bar.getFullYear()); // current year
 ```
 当我们执行 `new` 操作时，共完成了如下几件事情。
-1. 创建一个临时的空对象 o
-2. 将 o 的原型指向构造器的原型对象
-3. 以 o 为上下文执行构造器
-4. 返回 o
+  1. 创建一个临时的空对象 o
+  2. 将 o 的原型指向构造器的原型对象
+  3. 以 o 为上下文执行构造器
+  4. 返回 o
 
 用代码模拟以上过程
 ```javascript
